@@ -26,6 +26,14 @@
   # Let Home Manager install and manage itself
   programs.home-manager.enable = true;
 
+  programs.git = {
+    enable = true;
+    settings = {
+      user.name = "trustytrojan";
+      user.email = "t@trustytrojan.dev";
+    };
+  };
+
   # 1. User-specific Bash Configuration
   programs.bash = {
     enable = true; # Ensures Home Manager manages your user's bash
