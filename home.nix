@@ -12,6 +12,7 @@
     ./theme.nix
     ./apps.nix
     ./services.nix
+    ./fonts.nix
   ];
 
   # 1. Mandatory Boilerplate
@@ -31,11 +32,12 @@
 
     shellAliases = {
       usermount = "sudo mount -o uid=$USER,gid=$GROUPS";
-      yt-dlp = "yt-dlp --remote-components ejs:github --embed-metadata --embed-thumbnail";
+      # yt-dlp = "yt-dlp --remote-components ejs:github --embed-metadata --embed-thumbnail";
 
       # Single quotes around the alias string mean we use double quotes inside jq safely
       tearing-nodes = "swaymsg -t get_tree | jq '.. | select(.allow_tearing? == true) | {name, type}'";
 
+      # These variables allow for screen tearing (allow_tearing in sway config)
       sway = "WLR_DRM_NO_MODIFIERS=1 WLR_DRM_NO_ATOMIC=1 sway";
     };
   };

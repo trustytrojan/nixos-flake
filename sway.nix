@@ -11,6 +11,11 @@ let
   swaylockBin = "${config.programs.swaylock.package}/bin/swaylock";
 in
 {
+  home.file.".wallpaper.jpg".source = pkgs.fetchurl {
+    url = "https://github.com/trustytrojan/dotfiles/raw/main/.wallpaper.jpg";
+    hash = "sha256-kDGeQYErzNYtLH6W3V2U4rwI7YZkhbf8AkICnNWVdIM=";
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     package = pkgs.swayfx;

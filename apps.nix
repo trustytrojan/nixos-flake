@@ -3,23 +3,32 @@
 {
   home.packages = with pkgs; [
     fastfetch
-    iosevka-bin
-    noto-fonts
-    font-awesome
     dex
     brightnessctl
     grim
     slurp
     wl-clipboard
     pavucontrol
-    nvtopPackages.msm
+    nvtopPackages.msm # should make this the full variant when I test this flake on other systems
     xdg-utils
+    jq
+    nemo
+    nemo-fileroller
   ];
 
   # should move this to a "desktop-environment.nix" or sway-related file or something
   programs.wofi.enable = true;
 
   programs.vscode.enable = true;
+
+  programs.yt-dlp = {
+    enable = true;
+    settings = {
+      embed-thumbnail = true;
+      embed-metadata = true;
+      remote-components = "ejs:github";
+    };
+  };
 
   xdg.mimeApps = {
     enable = true;
