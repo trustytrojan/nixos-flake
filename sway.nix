@@ -105,9 +105,9 @@ in
 
       # Startup Applications
       startup = [
-        { command = "${pkgs.swayidle}/bin/swayidle"; }
-        { command = "systemctl --user start gammastep"; }
-        { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
+        # { command = "${pkgs.swayidle}/bin/swayidle"; }
+        # { command = "systemctl --user start gammastep"; }
+        # { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
         { command = "${pkgs.dex}/bin/dex -a"; }
         # Add this line to force focus to Workspace 1 on launch
         # idk why but sway starts in workspace 10 by default. do this to start in workspace 1
@@ -130,10 +130,10 @@ in
             "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
 
           # Hardware Keys
-          "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
-          "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
-          "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+          "XF86AudioRaiseVolume" = "exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+";
+          "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+          "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          "XF86AudioMicMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
           "XF86MonBrightnessUp" = "exec brightnessctl s +5%";
           "XF86MonBrightnessDown" = "exec brightnessctl s 5%-";
           "XF86ScreenSaver" = "exec ${swaylockBin}";
@@ -186,8 +186,6 @@ in
           "${mod}+t" = "layout tabbed";
           "${mod}+Shift+l" = "layout toggle all";
           "${mod}+f" = "fullscreen";
-          #"${mod}+Shift+Space" = "floating toggle";
-          #"${mod}+Space" = "focus mode_toggle";
           "${mod}+a" = "focus parent";
 
           # Scratchpad

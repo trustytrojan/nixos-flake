@@ -5,151 +5,7 @@
     enable = true;
     systemd.enable = true;
 
-    style = ''
-      * {
-          font-family: Iosevka, Roboto, Helvetica, Arial, sans-serif;
-          font-size: 15px;
-          border-radius: 30px;
-          margin: 2px;
-      }
-
-      window#waybar {
-          border: 2px solid #888888;
-          background-color: rgba(43, 48, 59, 0.5);
-          color: #ffffff;
-      }
-
-      window#waybar.hidden {
-          opacity: 0.2;
-      }
-
-      window#waybar.termite {
-          background-color: #3F3F3F;
-      }
-
-      window#waybar.chromium {
-          background-color: #000000;
-          border: none;
-      }
-
-      button {
-          border: none;
-      }
-
-      button:hover {
-          background: inherit;
-      }
-
-      #workspaces button {
-          padding: 0 5px;
-          background-color: transparent;
-          color: #ffffff;
-      }
-
-      #workspaces button:hover {
-          background: #505050;
-      }
-
-      #workspaces button.focused {
-          background-color: #64727D;
-      }
-
-      #workspaces button.urgent {
-          background-color: #eb4d4b;
-      }
-
-      #mode {
-          background-color: #64727D;
-      }
-
-      #clock,
-      #battery,
-      #cpu,
-      #memory,
-      #disk,
-      #temperature,
-      #backlight,
-      #network,
-      #pulseaudio,
-      #wireplumber,
-      #tray,
-      #mode,
-      #scratchpad,
-      #idle_inhibitor {
-          padding: 0 10px;
-          color: #eeeeee;
-          background-color: #007777;
-      }
-
-      #window,
-      #workspaces {
-          margin: 0 4px;
-      }
-
-      .modules-left > widget:first-child > #workspaces {
-          margin-left: 0;
-      }
-
-      .modules-right > widget:last-child > #workspaces {
-          margin-right: 0;
-      }
-
-      @keyframes blink {
-          to {
-              background-color: #ffffff;
-              color: #000000;
-          }
-      }
-
-      #battery.critical:not(.charging) {
-          background-color: #f53c3c;
-          color: #ffffff;
-          animation-name: blink;
-          animation-duration: 0.5s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-      }
-
-      label:focus {
-          background-color: #000000;
-      }
-
-      #network.disconnected {
-          background-color: #f53c3c;
-          color: #eeeeee
-      }
-
-      #pulseaudio.muted {
-          background-color: #90b1b1;
-          color: #2a5c45;
-      }
-
-      #temperature.critical {
-          background-color: #eb4d4b;
-      }
-
-      #tray > .passive {
-          -gtk-icon-effect: dim;
-      }
-
-      #tray > .needs-attention {
-          -gtk-icon-effect: highlight;
-          background-color: #eb4d4b;
-      }
-
-      #scratchpad {
-          background: rgba(0, 0, 0, 0.2);
-      }
-
-      #scratchpad.empty {
-          background-color: transparent;
-      }
-
-      #idle_inhibitor.activated {
-          background-color: #007777;
-      }
-    '';
+    style = builtins.readFile ./waybar-style.css;
 
     settings = {
       mainBar = {
@@ -193,25 +49,25 @@
           tooltip-format = "{app}: {title}";
         };
 
-        "tray" = {
+        tray = {
           spacing = 10;
         };
 
-        "clock" = {
+        clock = {
           tooltip-format = "<small>{calendar}</small>";
           format-alt = "{:%Y-%m-%d}";
         };
 
-        "cpu" = {
+        cpu = {
           format = "{usage}% ";
           tooltip = true;
         };
 
-        "memory" = {
+        memory = {
           format = "{}% ";
         };
 
-        "temperature" = {
+        temperature = {
           critical-threshold = 80;
           format = "{temperatureC}°C {icon}";
           format-icons = [
@@ -221,7 +77,7 @@
           ]; # Note: check if you need  icon pasted back explicitly
         };
 
-        "backlight" = {
+        backlight = {
           format = "{percent}% {icon}";
           format-icons = [
             ""
@@ -236,13 +92,17 @@
           ];
         };
 
-        "battery" = {
+        battery = {
+          interval = 10;
+          smooth-power = true;
+
           states = {
             warning = 30;
             critical = 15;
           };
-          format = "{capacity}% {icon}";
-          format-charging = "{capacity}% ";
+
+          format = "{capacity}% {power}w {icon}";
+          format-charging = "{capacity}% {power}w ";
           format-plugged = "{capacity}% ";
           format-alt = "{time} {icon}";
           format-icons = [
@@ -254,7 +114,7 @@
           ];
         };
 
-        "network" = {
+        network = {
           format-wifi = "{essid} ({signalStrength}%) ";
           format-ethernet = "{ipaddr}/{cidr} ";
           tooltip-format = "{ifname} via {gwaddr} ";
@@ -263,7 +123,7 @@
           format-alt = "{ifname}: {ipaddr}/{cidr}";
         };
 
-        "pulseaudio" = {
+        pulseaudio = {
           scroll-step = 5;
           format = "{volume}% {icon} {format_source}";
           format-bluetooth = "{volume}% {icon} {format_source}";
@@ -287,7 +147,7 @@
           on-click = "pavucontrol";
         };
 
-        "idle_inhibitor" = {
+        idle_inhibitor = {
           format = "{icon}";
           format-icons = {
             activated = "";

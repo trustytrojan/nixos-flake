@@ -40,7 +40,7 @@
   # See: https://docs.kernel.org/admin-guide/sysrq.html
   boot.kernel.sysctl."kernel.sysrq" = 80;
 
-  users.users.user = {
+  users.users.t = {
     isNormalUser = true;
     # Default password, should be changed using `passwd` after first login.
     password = "nixos";
@@ -95,6 +95,7 @@
       highlight_changes = 1;
       highlight_changes_delay_secs = 1;
       delay = 10;
+      tree_view = 1;
     };
   };
 

@@ -17,11 +17,7 @@ in
     };
 
     # Force Gammastep to use the Wayland backend protocol explicitly
-    settings = {
-      general = {
-        adjustment-method = "wayland";
-      };
-    };
+    settings.general.adjustment-method = "wayland";
   };
 
   services.swayidle = {
@@ -82,4 +78,7 @@ in
   };
 
   services.polkit-gnome.enable = true;
+
+  services.gnome-keyring.enable = true;
+  home.packages = [ pkgs.gcr ]; # Provides org.gnome.keyring.SystemPrompter
 }

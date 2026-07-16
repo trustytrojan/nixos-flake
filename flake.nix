@@ -4,11 +4,15 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Hardware support flake for Snapdragon X Elite
-    x1e-nixos-config.url = "github:kuruczgy/x1e-nixos-config";
-    x1e-nixos-config.inputs.nixpkgs.follows = "nixpkgs";
+    x1e-nixos-config = {
+      url = "github:kuruczgy/x1e-nixos-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -50,9 +54,11 @@
           # Home Manager: sets up my desktop environment, apps, etc.
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.user = import ./home.nix;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.t = import ./home.nix;
+            };
           }
         ];
       };
