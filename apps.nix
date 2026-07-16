@@ -19,7 +19,13 @@
   # should move this to a "desktop-environment.nix" or sway-related file or something
   programs.wofi.enable = true;
 
-  programs.vscode.enable = true;
+  programs.vscode = {
+    enable = true;
+    argvSettings = {
+      password-store = "gnome-libsecret";
+      enable-crash-reporter = false;
+    };
+  };
 
   programs.yt-dlp = {
     enable = true;
@@ -54,6 +60,13 @@
     settings = {
       hardwareVideoAcceleration = true;
     };
+  };
+
+  # The easiest way to add command line flags to an Electron app: ~/.config/<app_name>-flags.conf
+  xdg.configFile."vesktop-flags.conf" = {
+    text = ''
+      password-store=gnome-libsecret
+    '';
   };
 
   programs.librewolf = {

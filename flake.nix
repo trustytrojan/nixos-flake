@@ -58,6 +58,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users.t = import ./home.nix;
+              backupFileExtension = "old";
             };
           }
         ];
