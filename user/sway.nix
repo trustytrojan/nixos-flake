@@ -6,7 +6,6 @@
 }:
 
 let
-  # Step back two directories to reach screen-recorder.nix
   screen-recorder = import ./screen-recorder.nix { inherit pkgs; };
   swaylockBin = "${config.programs.swaylock.package}/bin/swaylock";
 in
@@ -105,9 +104,6 @@ in
 
       # Startup Applications
       startup = [
-        # { command = "${pkgs.swayidle}/bin/swayidle"; }
-        # { command = "systemctl --user start gammastep"; }
-        # { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
         { command = "${pkgs.dex}/bin/dex -a"; }
         # Add this line to force focus to Workspace 1 on launch
         # idk why but sway starts in workspace 10 by default. do this to start in workspace 1
@@ -144,7 +140,7 @@ in
           "Shift+Print" = "exec [ ! \$(pidof slurp) ] && grim - | wl-copy";
           "Ctrl+Shift+Print" = "exec [ ! \$(pidof slurp) ] && grim";
           "Alt+Print" = "exec ${screen-recorder}/bin/screen-recorder";
-          "Alt+BackSpace" = "exec killall -s SIGINT wf-recorder";
+          "Alt+BackSpace" = "exec pkill wf-recorder";
 
           # Window Focus & Movement
           "${mod}+Left" = "focus left";
