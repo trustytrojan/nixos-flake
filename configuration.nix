@@ -40,6 +40,7 @@
   # See: https://docs.kernel.org/admin-guide/sysrq.html
   boot.kernel.sysctl."kernel.sysrq" = 80;
 
+  # In case you're confused: users.<group>.<user>
   users.users.t = {
     isNormalUser = true;
     # Default password, should be changed using `passwd` after first login.
@@ -65,6 +66,11 @@
       auth include login
     '';
   };
+
+  # On user login, unlock GNOME Keyring with the same password used to login.
+  # This will create a keyring called "Login" which is different from "Default Keyring".
+  # So make sure to have this enabled before letting apps populate the keyring.
+  security.pam.services.login.enableGnomeKeyring = true;
 
   environment.systemPackages = with pkgs; [
     neovim
