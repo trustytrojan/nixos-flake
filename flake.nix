@@ -49,7 +49,7 @@
           }
 
           # My system configuration (should be hardware-agnostic)
-          ./configuration.nix
+          ./system/configuration.nix
 
           # Home Manager: sets up my desktop environment, apps, etc.
           home-manager.nixosModules.home-manager
@@ -57,7 +57,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.t = import ./home.nix;
+              users.t = import ./user/home.nix;
               backupFileExtension = "old";
             };
           }
