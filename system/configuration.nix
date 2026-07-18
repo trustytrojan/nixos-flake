@@ -16,6 +16,10 @@
     emergencyAccess = true;
   };
 
+  # Re-enable hardware video decoding kernel module.
+  # Seems to be working fine for me within Firefox and ffmpeg.
+  boot.blacklistedKernelModules = lib.mkForce [];
+
   services.automatic-timezoned.enable = true;
 
   hardware.enableRedistributableFirmware = true;
@@ -130,4 +134,7 @@
 
   # Tell the system to use geoclue2 as the provider
   location.provider = "geoclue2";
+
+  # We're on ARM now, might as well! Only added 12MB to the install.
+  virtualisation.waydroid.enable = true;
 }
