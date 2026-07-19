@@ -138,7 +138,10 @@
   location.provider = "geoclue2";
 
   # We're on ARM now, might as well! Only added 12MB to the install.
-  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid = {
+    enable = true;
+    package = pkgs.waydroid-nftables;
+  };
 
   # This is great for isolating development environments
   programs.direnv = {
