@@ -81,6 +81,8 @@
   environment.systemPackages = with pkgs; [
     neovim
     git
+    man-pages
+    file
   ];
 
   networking.networkmanager = {
