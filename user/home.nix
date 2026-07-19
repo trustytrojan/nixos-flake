@@ -31,9 +31,10 @@
 
     git = {
       enable = true;
-      settings.user = {
-        name = "trustytrojan";
-        email = "t@trustytrojan.dev";
+      settings = {
+        user.name = "trustytrojan";
+        user.email = "t@trustytrojan.dev";
+        pull.rebase = false;
       };
     };
 

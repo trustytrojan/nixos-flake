@@ -137,4 +137,10 @@
 
   # We're on ARM now, might as well! Only added 12MB to the install.
   virtualisation.waydroid.enable = true;
+
+  # This is great for isolating development environments
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 }
