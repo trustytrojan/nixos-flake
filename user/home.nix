@@ -39,6 +39,7 @@
       ignores = [
         ".cache"
         ".direnv"
+        "compile_commands.json"
       ];
     };
 
