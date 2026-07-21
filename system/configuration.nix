@@ -18,7 +18,7 @@
 
   # Re-enable hardware video decoding kernel module.
   # Seems to be working fine for me within Firefox and ffmpeg.
-  boot.blacklistedKernelModules = lib.mkForce [];
+  boot.blacklistedKernelModules = lib.mkForce [ ];
 
   services.automatic-timezoned.enable = true;
 

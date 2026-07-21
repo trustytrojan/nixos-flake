@@ -36,6 +36,10 @@
         user.email = "t@trustytrojan.dev";
         pull.rebase = false;
       };
+      ignores = [
+        ".cache"
+        ".direnv"
+      ];
     };
 
     bash = {
