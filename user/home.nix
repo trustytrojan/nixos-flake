@@ -37,6 +37,7 @@
         pull.rebase = false;
       };
       ignores = [
+        ".vscode"
         ".cache"
         ".direnv"
         "compile_commands.json"
