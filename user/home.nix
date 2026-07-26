@@ -47,10 +47,22 @@
     bash = {
       enable = true;
       shellAliases = {
+        # Mount a filesystem owned by my user
         usermount = "sudo mount -o uid=$USER,gid=$GROUPS";
+
+        # Uncomment when you actually make use of yt-dlp
         # yt-dlp = "yt-dlp --remote-components ejs:github --embed-metadata --embed-thumbnail";
+
+        # Prints all sway nodes that have allow_tearing enabled, good for debugging
         tearing-nodes = "swaymsg -t get_tree | jq '.. | select(.allow_tearing? == true) | {name, type}'";
+
+        # Inject environment variables needed for screen tearing
         sway = "WLR_DRM_NO_MODIFIERS=1 WLR_DRM_NO_ATOMIC=1 sway";
+
+        # This is the only reliable way to run gparted. Running it in a subshell lets the original
+        # shell exit so that the launching terminal can get out of the way. This is required because
+        # the `pkexec` binary shipped in the gparted package has its setuid bit disabled.
+        gparted = "(sudo -E nix run nixpkgs#gparted &); exit";
       };
     };
   };
