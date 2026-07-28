@@ -29,6 +29,7 @@
   # this is REQUIRED for sway
   hardware.graphics.enable = true;
 
+  # These mounts are specific to the yoga-slim-7x, move it to that output
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/root";
@@ -40,6 +41,7 @@
     };
   };
 
+  # This also might have to go to yoga-slim-7x output
   # Enable some SysRq keys (80 = sync + process kill)
   # See: https://docs.kernel.org/admin-guide/sysrq.html
   boot.kernel.sysctl."kernel.sysrq" = 80;
