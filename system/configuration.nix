@@ -20,8 +20,6 @@
   # Seems to be working fine for me within Firefox and ffmpeg.
   boot.blacklistedKernelModules = lib.mkForce [ ];
 
-  services.automatic-timezoned.enable = true;
-
   hardware.enableRedistributableFirmware = true;
 
   nixpkgs.config.allowUnfree = true;
