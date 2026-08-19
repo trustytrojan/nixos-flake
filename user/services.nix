@@ -7,16 +7,17 @@ in
 {
   services.gammastep = {
     enable = true;
-    provider = "geoclue2"; # Hooks directly into the system's GeoClue service
     tray = true;
 
-    # Optional styling tweaks
+    # Use hardcoded times because location providers are inconsistent
+    dawnTime = "6:30-7:30";
+    duskTime = "19:30-20:30";
+
     temperature = {
       day = 5700;
       night = 2500;
     };
 
-    # Force Gammastep to use the Wayland backend protocol explicitly
     settings.general.adjustment-method = "wayland";
   };
 

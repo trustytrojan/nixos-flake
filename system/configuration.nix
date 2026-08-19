@@ -131,13 +131,7 @@
     promptInit = builtins.readFile ./prompt-init.sh;
   };
 
-  # Enable the Geoclue location service daemon
-  services.geoclue2.enable = true;
-
-  # Tell the system to use geoclue2 as the provider
-  location.provider = "geoclue2";
-
-  # We're on ARM now, might as well! Only added 12MB to the install.
+  # We're on ARM now, might as well! Only adds 12MB to the install.
   virtualisation.waydroid = {
     enable = true;
     package = pkgs.waydroid-nftables;
