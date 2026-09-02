@@ -10,7 +10,7 @@ in
     tray = true;
 
     # Use hardcoded times because location providers are inconsistent
-    dawnTime = "6:30-7:30";
+    dawnTime = "5:30-6:30";
     duskTime = "19:30-20:30";
 
     temperature = {

@@ -21,6 +21,7 @@
 
   programs.vscode = {
     enable = true;
+    package = pkgs.vscode-fhs;
     argvSettings = {
       password-store = "gnome-libsecret";
       enable-crash-reporter = false;
