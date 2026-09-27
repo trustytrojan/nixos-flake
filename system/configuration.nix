@@ -20,6 +20,9 @@
   # Seems to be working fine for me within Firefox and ffmpeg.
   boot.blacklistedKernelModules = lib.mkForce [ ];
 
+  # Mainly for osu-lazer's built-in OTD to function properly
+  hardware.opentabletdriver.enable = true;
+
   hardware.enableRedistributableFirmware = true;
 
   nixpkgs.config.allowUnfree = true;
