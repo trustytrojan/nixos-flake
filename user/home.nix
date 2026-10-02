@@ -64,6 +64,10 @@
         # the `pkexec` binary shipped in the gparted package has its setuid bit disabled.
         gparted = "(sudo -E nix run nixpkgs#gparted &); exit";
       };
+      sessionVariables = {
+        # SDL apps should prefer native Wayland
+        SDL_VIDEODRIVER = "wayland,x11";
+      };
     };
   };
 }

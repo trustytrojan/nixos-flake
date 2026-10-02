@@ -34,12 +34,9 @@ in
         resumeCommand = "${pkgs.sway}/bin/swaymsg \"output * power on\"";
       }
     ];
-    events = [
-      {
-        event = "before-sleep";
-        command = swaylockBin;
-      }
-    ];
+    events = {
+      "before-sleep" = swaylockBin;
+    };
   };
 
   programs.swaylock = {

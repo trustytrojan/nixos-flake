@@ -1,15 +1,15 @@
 set_ps1() {
 	# Color/style escape sequences
-	bold() { echo '\[\e[1;'$1'm\]'; }
-	local RESET='\[\e[0m\]'
-	local CYAN=$(bold 36)
-	local RED=$(bold 31)
-	local WHITE=$(bold 37)
-	local BLUE=$(bold 34)
+	local RESET='\[\e[0m\]' CYAN RED WHITE BLUE
+	bold() { printf -v "$1" '\[\e[1;%sm\]' "$2"; }
+	bold CYAN 36
+    bold RED 31
+    bold WHITE 37
+    bold BLUE 34
 	unset bold
 
 	# Red username and `#` are reserved for root
-	local USER PROMPT_CHAR
+	local USER_COLOR PROMPT_CHAR
 	if [ $UID = 0 ]; then
 		USER_COLOR=$RED
 		PROMPT_CHAR=\#

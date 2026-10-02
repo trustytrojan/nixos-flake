@@ -14,6 +14,9 @@
     jq
     nemo
     nemo-fileroller
+    p7zip
+    dua
+    osu-lazer # TODO: Make this conditionally osu-lazer-bin on x64
   ];
 
   # should move this to a "desktop-environment.nix" or sway-related file or something
@@ -39,15 +42,18 @@
 
   xdg.mimeApps = {
     enable = true;
-    associations.added = {
+    defaultApplications = {
       "text/html" = "librewolf.desktop";
       "x-scheme-handler/http" = "librewolf.desktop";
       "x-scheme-handler/https" = "librewolf.desktop";
       "x-scheme-handler/about" = "librewolf.desktop";
       "x-scheme-handler/unknown" = "librewolf.desktop";
+      "inode/directory" = "nemo.desktop";
+      "x-scheme-handler/file" = "nemo.desktop";
     };
   };
 
+  # TODO: If you're maining NixOS, might as well put your Vesktop theme CSS files in this repo.
   xdg.configFile."vesktop/themes/tt-cv.css" = {
     source = pkgs.fetchurl {
       url = "https://github.com/trustytrojan/dotfiles/raw/refs/heads/main/.config/vesktop/themes/tt-cv.css";

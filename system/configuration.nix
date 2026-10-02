@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
 
+# TODO: Make this system configuration hardware-agnostic, if possible.
 {
   boot.loader.systemd-boot = {
     enable = true;
@@ -26,6 +27,11 @@
   hardware.enableRedistributableFirmware = true;
 
   nixpkgs.config.allowUnfree = true;
+
+  nix.settings = {
+    # The default of 16 is a bit much. Increase this later on if really needed.
+    max-substitution-jobs = 1;
+  };
 
   # this is REQUIRED for sway
   hardware.graphics.enable = true;
