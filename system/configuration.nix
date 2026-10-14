@@ -38,13 +38,20 @@
 
   # These mounts are specific to the yoga-slim-7x, move it to that output
   fileSystems = {
+    # Root FS for NixOS
     "/" = {
-      device = "/dev/disk/by-label/root";
+      label = "root";
       fsType = "ext4";
     };
+    # EFI system partition
     "/boot" = {
-      device = "/dev/disk/by-label/SYSTEM_DRV";
+      label = "SYSTEM_DRV";
       fsType = "vfat";
+    };
+    # Shared data partition with Windows using Ext4Fsd
+    "/mnt/shared" = {
+      label = "Shared";
+      fsType = "ext4";
     };
   };
 
