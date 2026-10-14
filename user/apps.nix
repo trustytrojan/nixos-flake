@@ -19,6 +19,11 @@
     osu-lazer # TODO: Make this conditionally osu-lazer-bin on x64
   ];
 
+  programs.prismlauncher = {
+    enable = true;
+    package = pkgs.prismlauncher-unwrapped;
+  };
+
   # should move this to a "desktop-environment.nix" or sway-related file or something
   programs.wofi.enable = true;
 
