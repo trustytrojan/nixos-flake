@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 
 # TODO: Make this system configuration hardware-agnostic, if possible.
 {
@@ -19,17 +19,7 @@
     emergencyAccess = true;
   };
 
-  # Kernel 7.2.9 and above broke the keyboard.
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_7_2.override {
-    argsOverride = {
-      version = "7.2.8";
-      modDirVersion = "7.2.8";
-      src = pkgs.fetchurl {
-        url = "https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.2.8.tar.xz";
-        hash = "sha256-EujVqXPRrXxaXGmILkAisTHtcV23AD/c12Dd+MPlGUE=";
-      };
-    };
-  });
+  boot.kernelPackages = inputs.nixpkgs-kernel.legacyPackages.${pkgs.system}.linuxPackages_7_2;
 
   # Re-enable hardware video decoding kernel module.
   # Seems to be working fine for me within Firefox and ffmpeg.
