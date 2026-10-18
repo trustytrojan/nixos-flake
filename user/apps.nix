@@ -16,7 +16,9 @@
     nemo-fileroller
     p7zip
     dua
-    osu-lazer # TODO: Make this conditionally osu-lazer-bin on x64
+    # This takes way too much effort to build, and is not required for a working system.
+    # TODO: Put it into an overlay module that our NixOS configuration can optionally add.
+    #osu-lazer # TODO: Make this conditionally osu-lazer-bin on x64
   ];
 
   programs.prismlauncher = {
@@ -95,9 +97,6 @@
 
   programs.mpv = {
     enable = true;
-    config = {
-      hwdec = "auto-safe";
-    };
   };
 
   programs.foot = {

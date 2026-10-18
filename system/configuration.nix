@@ -5,9 +5,11 @@
   boot.loader.systemd-boot = {
     enable = true;
 
-    # The default EFI partition created by Windows is really small, limit to 2
-    # generations to be on the safe side.
-    configurationLimit = 2;
+    # The default EFI partition created by Windows is really small.
+    # When this was set to 2, sometimes rebuilds failed because the ESP ran out of space.
+    # Resizing the ESP means potentially reinstalling Windows on ARM, which sounds like a nightmare.
+    # Just deal with 1 for now. You're used to the Arch lifestyle anyway.
+    configurationLimit = 1;
   };
 
   boot.initrd.systemd = {
@@ -16,6 +18,18 @@
     # This is not secure, but it makes diagnosing errors easier.
     emergencyAccess = true;
   };
+
+  # Kernel 7.2.9 and above broke the keyboard.
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_7_2.override {
+    argsOverride = {
+      version = "7.2.8";
+      modDirVersion = "7.2.8";
+      src = pkgs.fetchurl {
+        url = "https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.2.8.tar.xz";
+        hash = "sha256-EujVqXPRrXxaXGmILkAisTHtcV23AD/c12Dd+MPlGUE=";
+      };
+    };
+  });
 
   # Re-enable hardware video decoding kernel module.
   # Seems to be working fine for me within Firefox and ffmpeg.
@@ -29,8 +43,11 @@
   nixpkgs.config.allowUnfree = true;
 
   nix.settings = {
-    # The default of 16 is a bit much. Increase this later on if really needed.
-    max-substitution-jobs = 1;
+    # Some "build jobs" are actually curl downloads...
+    # Same problem as max-substition-jobs being too high.
+    max-jobs = 8;
+    # The default of 16 is a bit much.
+    max-substitution-jobs = 8;
   };
 
   # this is REQUIRED for sway
