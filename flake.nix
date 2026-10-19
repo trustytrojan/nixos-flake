@@ -27,37 +27,61 @@
       nixpkgs-kernel,
       home-manager,
       x1e-nixos-config,
-    }@inputs:
+    }:
+    let
+      # Supported systems for general flake outputs (like formatters)
+      systems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+
+      # Helper function to generate attributes for each supported system
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+    in
     {
-      # So that `nix fmt` can work
-      formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixfmt;
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt);
 
       # Lenovo Yoga Slim 7x (Snapdragon X Elite) configuration
       nixosConfigurations.yoga-slim-7x = nixpkgs.lib.nixosSystem {
-        # This line makes `inputs` available in all NixOS modules:
-        specialArgs = { inherit inputs; };
-
         modules = [
           # Hardware support module. Does a lot of work.
           x1e-nixos-config.nixosModules.x1e
 
           # Inline NixOS configuration settings specific to the Yoga Slim 7x
-          {
+          ({ lib, pkgs, ... }: {
             networking.hostName = "yoga-slim-7x";
             hardware.lenovo-yoga-slim7x.enable = true;
             nixpkgs.hostPlatform.system = "aarch64-linux";
 
-            # This can probably be moved to configuration.nix. I like flakes.
-            nix = {
-              channel.enable = false;
-              settings.experimental-features = [
-                "nix-command"
-                "flakes"
-              ];
-            };
-          }
+            boot = {
+              # See flake inputs.
+              kernelPackages = nixpkgs-kernel.legacyPackages.${pkgs.system}.linuxPackages_7_2;
 
-          # My system configuration (should be hardware-agnostic)
+              # Unblacklist qcom_iris for hardware video acceleration.
+              blacklistedKernelModules = lib.mkForce [ ];
+            };
+
+            fileSystems = {
+              "/" = {
+                label = "root";
+                fsType = "ext4";
+              };
+
+              # EFI system partition (ESP)
+              "/boot" = {
+                label = "SYSTEM_DRV";
+                fsType = "vfat";
+              };
+
+              # Shared data partition with Windows
+              "/mnt/shared" = {
+                label = "Shared";
+                fsType = "ntfs";
+              };
+            };
+          })
+
+          # Hardware-agnostic system configuration
           ./system/configuration.nix
 
           # Home Manager: sets up my desktop environment, apps, etc.

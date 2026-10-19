@@ -23,7 +23,13 @@
 
   programs.prismlauncher = {
     enable = true;
-    package = pkgs.prismlauncher-unwrapped;
+    package =
+      with pkgs;
+      (prismlauncher.override {
+        jdks = [
+          openjdk25
+        ];
+      });
   };
 
   # should move this to a "desktop-environment.nix" or sway-related file or something

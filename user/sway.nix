@@ -91,7 +91,7 @@ in
         {
           command = "allow_tearing yes";
           criteria = {
-            app_id = "osu!";
+            title = ".*(osu|Better than Adventure).*";
           };
         }
         {
