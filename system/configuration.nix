@@ -106,6 +106,7 @@
     git
     man-pages
     file
+    ntfs3g
   ];
 
   networking.networkmanager = {
