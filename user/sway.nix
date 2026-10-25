@@ -91,7 +91,7 @@ in
         {
           command = "allow_tearing yes";
           criteria = {
-            title = ".*(osu|Better than Adventure).*";
+            title = ".*(osu|Better than Adventure|Cleanroom).*";
           };
         }
         {

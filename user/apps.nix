@@ -27,7 +27,8 @@
       with pkgs;
       (prismlauncher.override {
         jdks = [
-          openjdk25
+          openjdk8 # For Forge 1.12.2
+          openjdk25 # For Cleanroom
         ];
       });
   };
