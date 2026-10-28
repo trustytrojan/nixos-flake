@@ -21,6 +21,34 @@
     #osu-lazer # TODO: Make this conditionally osu-lazer-bin on x64
   ];
 
+  programs.thunderbird = {
+    enable = true;
+    profiles.myprofile = {
+      isDefault = true;
+    };
+  };
+
+  # TODO: This should probably be moved elsewhere
+  accounts.email.accounts."t@trustytrojan.dev" = {
+    primary = true;
+    address = "t@trustytrojan.dev";
+    userName = "t";
+    realName = "t";
+
+    thunderbird.enable = true;
+
+    imap = {
+      host = "mx.trustytrojan.dev";
+      port = 993;
+      tls.enable = true;
+    };
+    smtp = {
+      host = "mx.trustytrojan.dev";
+      port = 465;
+      tls.enable = true;
+    };
+  };
+
   programs.prismlauncher = {
     enable = true;
     package =
